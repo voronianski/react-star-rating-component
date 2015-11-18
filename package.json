@@ -1,11 +1,12 @@
 {
   "name": "react-star-rating-component",
   "version": "0.1.0",
-  "description": "Basic component for star or any other icon ratings",
+  "description": "React component for star (or any other icon based) ratings",
   "main": "index.js",
   "scripts": {
     "build": "babel ./src/StarRatingComponent.jsx --out-file index.js",
-    "build-dev": "browserify ./example/app.js -o ./example/bundle.js -t [ babelify --presets [ es2015 stage-1 react ] ]"
+    "build-dev": "browserify ./example/app.js -o ./example/bundle.js -t [ babelify --presets [ es2015 stage-1 react ] ]",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",

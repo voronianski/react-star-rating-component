@@ -2,19 +2,21 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 
 export default class StarRatingComponent extends React.Component {
-    static defaultProps = {
-        starCount: 5,
-        value: 0,
-        editing: true
-    }
-
     static propTypes = {
         name: PropTypes.string.isRequired,
         value: PropTypes.number,
         editing: PropTypes.bool,
         starCount: PropTypes.number,
+        starColor: PropTypes.string,
         onStarClick: PropTypes.func,
         renderStarIcon: PropTypes.func
+    }
+
+    static defaultProps = {
+        starCount: 5,
+        value: 0,
+        editing: true,
+        starColor: '#ffb400'
     }
 
     constructor(props) {
@@ -35,12 +37,24 @@ export default class StarRatingComponent extends React.Component {
     }
 
     onStarClick(name, i) {
-        const { onStarClick } = this.props;
+        const { onStarClick, editing } = this.props;
+        if (!editing) {
+            return;
+        }
         onStarClick && onStarClick(name, i);
     }
 
     renderStars() {
-        const { name, starCount, renderStarIcon } = this.props;
+        const { name, starCount, starColor, editing, renderStarIcon } = this.props;
+        const starStyles = {
+            float: 'right',
+            cursor: editing ? 'pointer' : 'default'
+        };
+        const radioStyles = {
+            display: 'none',
+            position: 'absolte',
+            marginLeft: -9999
+        };
 
         // populate stars
         let starNodes = [];
@@ -49,6 +63,7 @@ export default class StarRatingComponent extends React.Component {
             const starNodeInput = (
                 <input
                     key={`input_${id}`}
+                    style={radioStyles}
                     className="dv-star-rating-input"
                     type="radio"
                     name={name}
@@ -61,11 +76,16 @@ export default class StarRatingComponent extends React.Component {
             const starNodeLabel = (
                 <label
                     key={`label_${id}`}
-                    htmlFor={id}
+                    style={this.state.value >= i ? {float: starStyles.float, cursor: starStyles.cursor, color: starColor} : starStyles}
                     className="dv-star-rating-star"
+                    htmlFor={id}
                     onClick={this.onStarClick.bind(this, name, i)}
                 >
-                    {typeof renderStarIcon === 'function' ? renderStarIcon() : <i>&#9733;</i>}
+                    {typeof renderStarIcon === 'function' ? (
+                        renderStarIcon(name, i, this.state.value)
+                    ) : (
+                        <i style={{fontStyle: 'normal'}}>&#9733;</i>
+                    )}
                 </label>
             );
             starNodes.push(starNodeInput);
@@ -77,12 +97,12 @@ export default class StarRatingComponent extends React.Component {
 
     render() {
         const { editing, className } = this.props;
-        const classes = cx('star-rating', {
-            'star-rating-non-editable': !editing
+        const classes = cx('dv-star-rating', {
+            'dv-star-rating-non-editable': !editing
         }, className);
 
         return (
-            <div className={classes}>
+            <div style={{display: 'inline-block', position: 'relative'}} className={classes}>
                 {this.renderStars()}
             </div>
         );
