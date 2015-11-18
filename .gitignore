@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
 index.js
+example/bundle.js
 *.log
 *.map

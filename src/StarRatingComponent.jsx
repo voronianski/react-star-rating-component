@@ -1,15 +1,37 @@
 import React, { PropTypes } from 'react';
+import cx from 'classnames';
 
 export default class StarRatingComponent extends React.Component {
-    defaultProps = {
-        starCount: 5
+    static defaultProps = {
+        starCount: 5,
+        value: 0,
+        editing: true
     }
 
-    propTypes = {
+    static propTypes = {
         name: PropTypes.string.isRequired,
+        value: PropTypes.number,
+        editing: PropTypes.bool,
         starCount: PropTypes.number,
         onStarClick: PropTypes.func,
         renderStarIcon: PropTypes.func
+    }
+
+    constructor(props) {
+        super();
+
+        this.state = {
+            value: props.value
+        };
+    }
+
+    onChange(name, value) {
+        const { editing } = this.props;
+        if (!editing) {
+            return;
+        }
+
+        this.setState({ value });
     }
 
     onStarClick(name, i) {
@@ -27,11 +49,13 @@ export default class StarRatingComponent extends React.Component {
             const starNodeInput = (
                 <input
                     key={`input_${id}`}
+                    className="dv-star-rating-input"
                     type="radio"
                     name={name}
                     id={id}
                     value={i}
-                    className="dv-star-rating-input"
+                    checked={this.state.value === i}
+                    onChange={this.onChange.bind(this, name, i)}
                 />
             );
             const starNodeLabel = (
@@ -52,6 +76,11 @@ export default class StarRatingComponent extends React.Component {
     }
 
     render() {
+        const { editing, className } = this.props;
+        const classes = cx('star-rating', {
+            'star-rating-non-editable': !editing
+        }, className);
+
         return (
             <div className={classes}>
                 {this.renderStars()}
