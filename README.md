@@ -8,6 +8,43 @@
 ### Editable 
 
 ```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import StarRatingComponent from '../';
+
+class App extends React.Component {
+    constructor() {
+        super();
+
+        this.state = {
+            rating: 1
+        };
+    }
+
+    onStarClick(name, value) {
+        this.setState({rating: value});
+    }
+
+    render() {
+        return (                
+            <div>
+                <h2>Rating from state: {this.state.rating}</h2>
+                <StarRatingComponent 
+                    name="rate1" 
+                    starCount={8}
+                    value={this.state.rating}
+                    onStarClick={this.onStarClick.bind(this)}
+                />
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <App />, 
+    document.getElementById('app')
+);
 ```
 
 ### Non-editable
