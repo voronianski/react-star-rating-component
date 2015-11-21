@@ -83,6 +83,8 @@ class App extends React.Component {
                 <StarRatingComponent 
                     name="rate2" 
                     editing={false}
+                    starCount={10}
+                    value={8}
                 />
             </div>
         );
