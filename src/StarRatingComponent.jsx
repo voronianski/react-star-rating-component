@@ -36,16 +36,17 @@ export default class StarRatingComponent extends React.Component {
         this.setState({ value });
     }
 
-    onStarClick(name, i) {
+    onStarClick(name, i, value) {
         const { onStarClick, editing } = this.props;
         if (!editing) {
             return;
         }
-        onStarClick && onStarClick(name, i);
+        onStarClick && onStarClick(name, i, value);
     }
 
     renderStars() {
         const { name, starCount, starColor, editing, renderStarIcon } = this.props;
+        const { value } = this.state;
         const starStyles = {
             float: 'right',
             cursor: editing ? 'pointer' : 'default'
@@ -69,20 +70,20 @@ export default class StarRatingComponent extends React.Component {
                     name={name}
                     id={id}
                     value={i}
-                    checked={this.state.value === i}
+                    checked={value === i}
                     onChange={this.onChange.bind(this, name, i)}
                 />
             );
             const starNodeLabel = (
                 <label
                     key={`label_${id}`}
-                    style={this.state.value >= i ? {float: starStyles.float, cursor: starStyles.cursor, color: starColor} : starStyles}
+                    style={value >= i ? {float: starStyles.float, cursor: starStyles.cursor, color: starColor} : starStyles}
                     className="dv-star-rating-star"
                     htmlFor={id}
-                    onClick={this.onStarClick.bind(this, name, i)}
+                    onClick={this.onStarClick.bind(this, name, i, value)}
                 >
                     {typeof renderStarIcon === 'function' ? (
-                        renderStarIcon(name, i, this.state.value)
+                        renderStarIcon(name, i, value)
                     ) : (
                         <i style={{fontStyle: 'normal'}}>&#9733;</i>
                     )}

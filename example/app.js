@@ -12,8 +12,8 @@ class App extends React.Component {
         };
     }
 
-    onStarClick(name, value) {
-        this.setState({rating: value});
+    onStarClick(name, nextValue, prevValue) {
+        this.setState({rating: nextValue});
     }
 
     render() {
@@ -26,7 +26,7 @@ class App extends React.Component {
                     <StarRatingComponent name="app1" />
                 </div>
 
-                <h3>Editable with handlers (Rating from state - {this.state.rating}):</h3>
+                <h3>Editable with handlers (Rating from state is {this.state.rating}):</h3>
                 <div style={{fontSize: 26}}>
                     <StarRatingComponent
                         name="app2"
@@ -36,22 +36,24 @@ class App extends React.Component {
                     />
                 </div>
 
-                <h3>Non-Editable:</h3>
-                <div style={{fontSize: 18}}>
+                <h3>Editable (with custom icons):</h3>
+                <div style={{fontSize: 20}}>
                     <StarRatingComponent
                         name="app3"
-                        editing={false}
                         starCount={10}
-                        value={8}
+                        value={6}
+                        starColor="#f00"
+                        renderStarIcon={(name, nextValue, prevValue) => <span></span>}
                     />
                 </div>
 
-                <h3>Non-Editable (with custom icons):</h3>
+                <h3>Non-Editable:</h3>
                 <div style={{fontSize: 18}}>
                     <StarRatingComponent
-                        name="app3"
+                        name="app4"
                         editing={false}
                         starCount={10}
+                        value={8}
                     />
                 </div>
             </div>
