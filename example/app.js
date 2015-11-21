@@ -12,7 +12,7 @@ class App extends React.Component {
         };
     }
 
-    onStarClick(name, nextValue, prevValue) {
+    onStarClick(nextValue, prevValue) {
         this.setState({rating: nextValue});
     }
 
@@ -43,7 +43,7 @@ class App extends React.Component {
                         starCount={10}
                         value={6}
                         starColor="#f00"
-                        renderStarIcon={(name, nextValue, prevValue) => <span></span>}
+                        renderStarIcon={(nextValue, prevValue) => <span></span>}
                     />
                 </div>
 

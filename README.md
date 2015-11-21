@@ -5,13 +5,20 @@
 
 > Tiny [React.js](https://facebook.github.io/react/) component for star (or any other *icon based*) ratings.
 
+## Demo
+
 <img src="https://dl.dropboxusercontent.com/u/100463011/react-star-rating-component.gif" width="600" />
 
 ## Props
 
-```
+```javascript
 <StarRatingComponent
-    name={String} /* is required */
+    name={String} /* name of the radio input, it is required */
+    value={Number} /* number of selected icon (`0` - none, `1` - first) */
+    starCount={Number} /* number of icons in rating, default `5` */
+    onStarClick={Function(nextValue, prevValue, name)} /* on icon click handler */
+    renderStarIcon={Function(nextValue, prevValue, name)} /* it should return string or react component */
+    starColor={String} /* color of selected icons, default `#ffb400` */
     editing={Boolean} /* is component available for editing, default `true` */
 />
 ```
