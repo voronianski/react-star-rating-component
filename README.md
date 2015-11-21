@@ -3,7 +3,18 @@
 [![npm version](http://badge.fury.io/js/react-star-rating-component.svg)](http://badge.fury.io/js/react-star-rating-component)
 [![Dependency Status](http://david-dm.org/voronianski/react-star-rating-component.svg)](http://david-dm.org/voronianski/react-star-rating-component)
 
-<img src="https://dl.dropboxusercontent.com/u/100463011/react-star-rating-component.gif" width="500" />
+> Tiny [React.js](https://facebook.github.io/react/) component for star (or any other *icon based*) ratings.
+
+<img src="https://dl.dropboxusercontent.com/u/100463011/react-star-rating-component.gif" width="600" />
+
+## Props
+
+```
+<StarRatingComponent
+    name={String} /* is required */
+    editing={Boolean} /* is component available for editing, default `true` */
+/>
+```
 
 ## Examples
 
