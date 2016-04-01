@@ -2,8 +2,15 @@
 
 [![npm version](http://badge.fury.io/js/react-star-rating-component.svg)](http://badge.fury.io/js/react-star-rating-component)
 [![Dependency Status](http://david-dm.org/voronianski/react-star-rating-component.svg)](http://david-dm.org/voronianski/react-star-rating-component)
+[![Download Count](http://img.shields.io/npm/dm/react-star-rating-component.svg?style=flat)](http://www.npmjs.com/package/react-star-rating-component)
 
 > Tiny [React.js](https://facebook.github.io/react/) component for star (or any other *icon based*) ratings.
+
+## Install
+
+```bash
+npm install react react-dom react-star-rating-component --save
+```
 
 ## Demo
 
@@ -83,6 +90,7 @@ class App extends React.Component {
                 <StarRatingComponent 
                     name="rate2" 
                     editing={false}
+                    renderStarIcon={(nextValue, prevValue) => <span></span>}
                     starCount={10}
                     value={8}
                 />

@@ -10,14 +10,14 @@ export default class StarRatingComponent extends React.Component {
         starColor: PropTypes.string,
         onStarClick: PropTypes.func,
         renderStarIcon: PropTypes.func
-    }
+    };
 
     static defaultProps = {
         starCount: 5,
         value: 0,
         editing: true,
         starColor: '#ffb400'
-    }
+    };
 
     constructor(props) {
         super();
