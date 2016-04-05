@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 
-export default class StarRatingComponent extends React.Component {
+class StarRatingComponent extends Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
         value: PropTypes.number,
@@ -109,3 +109,6 @@ export default class StarRatingComponent extends React.Component {
         );
     }
 }
+
+export default StarRatingComponent;
+

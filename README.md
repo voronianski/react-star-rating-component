@@ -90,7 +90,7 @@ class App extends React.Component {
                 <StarRatingComponent 
                     name="rate2" 
                     editing={false}
-                    renderStarIcon={(nextValue, prevValue) => <span></span>}
+                    renderStarIcon={() => <span></span>}
                     starCount={10}
                     value={8}
                 />
