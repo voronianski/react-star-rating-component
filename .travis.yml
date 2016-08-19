@@ -1,5 +1,19 @@
+sudo: false
+
 language: node_js
+
 node_js:
+  - 6
   - 4
-before_script:
+
+cache:
+  directories:
+    - node_modules
+
+install:
+  - npm i -g npm@latest
+  - npm install
+
+script:
+  - npm run test
   - npm run lint
