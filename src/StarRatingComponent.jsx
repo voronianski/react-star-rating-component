@@ -53,7 +53,7 @@ class StarRatingComponent extends Component {
         };
         const radioStyles = {
             display: 'none',
-            position: 'absolte',
+            position: 'absolute',
             marginLeft: -9999
         };
 
