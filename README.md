@@ -49,8 +49,8 @@ class App extends React.Component {
         };
     }
 
-    onStarClick(name, value) {
-        this.setState({rating: value});
+    onStarClick(nextValue, prevValue, name) {
+        this.setState({rating: nextValue});
     }
 
     render() {
