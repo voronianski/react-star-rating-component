@@ -21,10 +21,6 @@ class StarRatingComponent extends Component {
 
     constructor(props) {
         super();
-
-        this.state = {
-            value: props.value
-        };
     }
 
     onChange(value) {
@@ -32,8 +28,6 @@ class StarRatingComponent extends Component {
         if (!editing) {
             return;
         }
-
-        this.setState({ value });
     }
 
     onStarClick(i, value, name) {
