@@ -15,7 +15,7 @@ npm install react react-star-rating-component --save
 
 ## Demo
 
-<img src="https://dl.dropboxusercontent.com/u/100463011/react-star-rating-component.gif" width="600" />
+[<img src="https://dl.dropboxusercontent.com/u/100463011/react-star-rating-component.gif" width="600" />](http://voronianski.github.io/react-star-rating-component/example)
 
 ## Props
 
