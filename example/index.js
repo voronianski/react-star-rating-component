@@ -8,13 +8,19 @@ class App extends React.Component {
         super();
 
         this.state = {
-            rating: 1
+            rating: 1,
+            rating_custom_icon: 6
         };
     }
 
     onStarClick(nextValue, prevValue, name) {
         console.log('name: %s, nextValue: %s, prevValue: %s', name, nextValue, prevValue);
         this.setState({rating: nextValue});
+    }
+
+    onStarClickCustomIcon(nextValue, prevValue, name) {
+        console.log('name: %s, nextValue: %s, prevValue: %s', name, nextValue, prevValue);
+        this.setState({rating_custom_icon: nextValue});
     }
 
     render() {
@@ -42,7 +48,8 @@ class App extends React.Component {
                     <StarRatingComponent
                         name="app3"
                         starCount={10}
-                        value={6}
+                        value={this.state.rating_custom_icon}
+                        onStarClick={this.onStarClickCustomIcon.bind(this)}
                         starColor="#f00"
                         renderStarIcon={() => <span></span>}
                     />
