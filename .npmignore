@@ -1,1 +1,9 @@
 example
+src
+test
+.travis.yml
+.gitignore
+.eslintrc
+.babelrc
+.editorconfig
+webpack.config.js

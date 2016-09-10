@@ -34,7 +34,7 @@
         "react/prop-types": 0,
         "react/react-in-jsx-scope": 1,
         "react/self-closing-comp": 1,
-        "react/wrap-multilines": 1,
+        "react/jsx-wrap-multilines": 1,
         "new-cap": 0,
         "no-extra-boolean-cast": 0,
         "yoda": 0,
@@ -59,6 +59,7 @@
         "spaced-comment": 0,
         "prefer-rest-params": 0,
         "no-shadow": 0,
-        "no-unneeded-ternary": 0
+        "no-unneeded-ternary": 0,
+        "no-plusplus": 0
     }
 }

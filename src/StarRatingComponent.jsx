@@ -21,6 +21,17 @@ class StarRatingComponent extends Component {
 
     constructor(props) {
         super();
+
+        this.state = {
+            value: props.value
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { value } = nextProps;
+        if (value && (value !== this.state.value)) {
+            this.setState({ value });
+        }
     }
 
     onChange(value) {
@@ -28,6 +39,8 @@ class StarRatingComponent extends Component {
         if (!editing) {
             return;
         }
+
+        this.setState({ value });
     }
 
     onStarClick(i, value, name) {
@@ -40,7 +53,7 @@ class StarRatingComponent extends Component {
 
     renderStars() {
         const { name, starCount, starColor, editing, renderStarIcon } = this.props;
-        const { value } = this.props;
+        const { value } = this.state;
         const starStyles = {
             float: 'right',
             cursor: editing ? 'pointer' : 'default'
