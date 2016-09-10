@@ -12,8 +12,8 @@ class App extends React.Component {
         };
     }
 
-    onStarClick(nextValue, prevValue) {
-        console.log('nextValue: %s, prevValue: %s', nextValue, prevValue);
+    onStarClick(nextValue, prevValue, name) {
+        console.log('name: %s, nextValue: %s, prevValue: %s', name, nextValue, prevValue);
         this.setState({rating: nextValue});
     }
 
