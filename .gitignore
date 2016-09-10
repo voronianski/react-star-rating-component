@@ -4,5 +4,3 @@ node_modules
 *.map
 
 /index.js
-example/bundle.js
-example/bundle.min.js
