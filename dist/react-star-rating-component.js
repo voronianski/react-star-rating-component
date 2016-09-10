@@ -84,7 +84,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function StarRatingComponent(props) {
 	        _classCallCheck(this, StarRatingComponent);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StarRatingComponent).call(this));
+	        var _this = _possibleConstructorReturn(this, (StarRatingComponent.__proto__ || Object.getPrototypeOf(StarRatingComponent)).call(this));
 
 	        _this.state = {
 	            value: props.value
@@ -93,6 +93,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    _createClass(StarRatingComponent, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            var value = nextProps.value;
+
+	            if (value && value !== this.state.value) {
+	                this.setState({ value: value });
+	            }
+	        }
+	    }, {
 	        key: 'onChange',
 	        value: function onChange(value) {
 	            var editing = this.props.editing;
@@ -132,7 +141,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            };
 	            var radioStyles = {
 	                display: 'none',
-	                position: 'absolte',
+	                position: 'absolute',
 	                marginLeft: -9999
 	            };
 

@@ -27,6 +27,13 @@ class StarRatingComponent extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { value } = nextProps;
+        if (value && (value !== this.state.value)) {
+            this.setState({ value });
+        }
+    }
+
     onChange(value) {
         const { editing } = this.props;
         if (!editing) {
