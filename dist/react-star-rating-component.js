@@ -127,12 +127,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'renderStars',
 	        value: function renderStars() {
+	            var _this2 = this;
+
 	            var _props2 = this.props;
 	            var name = _props2.name;
 	            var starCount = _props2.starCount;
 	            var starColor = _props2.starColor;
 	            var editing = _props2.editing;
 	            var renderStarIcon = _props2.renderStarIcon;
+	            var renderStarIconHalf = _props2.renderStarIconHalf;
 	            var value = this.state.value;
 
 	            var starStyles = {
@@ -147,7 +150,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            // populate stars
 	            var starNodes = [];
-	            for (var i = starCount; i > 0; i--) {
+
+	            var _loop = function _loop(i) {
 	                var id = name + '_' + i;
 	                var starNodeInput = _react2.default.createElement('input', {
 	                    key: 'input_' + id,
@@ -158,18 +162,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    id: id,
 	                    value: i,
 	                    checked: value === i,
-	                    onChange: this.onChange.bind(this, i, name)
+	                    onChange: _this2.onChange.bind(_this2, i, name)
 	                });
 	                var starNodeLabel = _react2.default.createElement(
 	                    'label',
 	                    {
 	                        key: 'label_' + id,
-	                        style: value >= i ? { float: starStyles.float, cursor: starStyles.cursor, color: starColor } : starStyles,
+	                        style: value >= i ? {
+	                            float: starStyles.float,
+	                            cursor: starStyles.cursor,
+	                            color: starColor
+	                        } : starStyles,
 	                        className: 'dv-star-rating-star',
 	                        htmlFor: id,
-	                        onClick: this.onStarClick.bind(this, i, value, name)
+	                        onClick: _this2.onStarClick.bind(_this2, i, value, name)
 	                    },
-	                    typeof renderStarIcon === 'function' ? renderStarIcon(i, value, name) : _react2.default.createElement(
+	                    typeof renderStarIcon === 'function' ? function () {
+	                        if (typeof renderStarIconHalf === 'function') {
+	                            if (Math.floor(value) === i) {
+	                                if (value % 1 !== 0) {
+	                                    return renderStarIconHalf(i, value, name);
+	                                }
+	                            }
+	                        }
+
+	                        return renderStarIcon(i, value, name);
+	                    }() : _react2.default.createElement(
 	                        'i',
 	                        { style: { fontStyle: 'normal' } },
 	                        '★'
@@ -177,6 +195,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                );
 	                starNodes.push(starNodeInput);
 	                starNodes.push(starNodeLabel);
+	            };
+
+	            for (var i = starCount; i > 0; i--) {
+	                _loop(i);
 	            }
 
 	            return starNodes;
@@ -210,13 +232,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    starCount: _react.PropTypes.number,
 	    starColor: _react.PropTypes.string,
 	    onStarClick: _react.PropTypes.func,
-	    renderStarIcon: _react.PropTypes.func
+	    renderStarIcon: _react.PropTypes.func,
+	    renderStarIconHalf: _react.PropTypes.func
 	};
 	StarRatingComponent.defaultProps = {
 	    starCount: 5,
 	    value: 0,
 	    editing: true,
-	    starColor: '#ffb400'
+	    starColor: '#ffb400',
+	    useHalfStar: false
 	};
 	exports.default = StarRatingComponent;
 	module.exports = exports['default'];

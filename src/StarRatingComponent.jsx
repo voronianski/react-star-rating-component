@@ -9,14 +9,16 @@ class StarRatingComponent extends Component {
         starCount: PropTypes.number,
         starColor: PropTypes.string,
         onStarClick: PropTypes.func,
-        renderStarIcon: PropTypes.func
+        renderStarIcon: PropTypes.func,
+        renderStarIconHalf: PropTypes.func
     };
 
     static defaultProps = {
         starCount: 5,
         value: 0,
         editing: true,
-        starColor: '#ffb400'
+        starColor: '#ffb400',
+        useHalfStar: false
     };
 
     constructor(props) {
@@ -52,7 +54,7 @@ class StarRatingComponent extends Component {
     }
 
     renderStars() {
-        const { name, starCount, starColor, editing, renderStarIcon } = this.props;
+        const { name, starCount, starColor, editing, renderStarIcon, renderStarIconHalf } = this.props;
         const { value } = this.state;
         const starStyles = {
             float: 'right',
@@ -84,13 +86,29 @@ class StarRatingComponent extends Component {
             const starNodeLabel = (
                 <label
                     key={`label_${id}`}
-                    style={value >= i ? {float: starStyles.float, cursor: starStyles.cursor, color: starColor} : starStyles}
+                    style={value >= i
+                            ? {
+                                float: starStyles.float,
+                                cursor: starStyles.cursor,
+                                color: starColor
+                            }
+                            : starStyles}
                     className="dv-star-rating-star"
                     htmlFor={id}
                     onClick={this.onStarClick.bind(this, i, value, name)}
                 >
                     {typeof renderStarIcon === 'function' ? (
-                        renderStarIcon(i, value, name)
+                        (() => {
+                            if (typeof renderStarIconHalf === 'function') {
+                                if (Math.floor(value) === i) {
+                                    if (value % 1 !== 0) {
+                                        return renderStarIconHalf(i, value, name);
+                                    }
+                                }
+                            }
+
+                            return renderStarIcon(i, value, name);
+                        })()
                     ) : (
                         <i style={{fontStyle: 'normal'}}>&#9733;</i>
                     )}
@@ -118,4 +136,3 @@ class StarRatingComponent extends Component {
 }
 
 export default StarRatingComponent;
-
