@@ -9,14 +9,16 @@ class StarRatingComponent extends Component {
     starCount: PropTypes.number,
     starColor: PropTypes.string,
     onStarClick: PropTypes.func,
-    renderStarIcon: PropTypes.func
+    renderStarIcon: PropTypes.func,
+    renderStarIconHalf: PropTypes.func
   };
 
   static defaultProps = {
     starCount: 5,
     value: 0,
     editing: true,
-    starColor: '#ffb400'
+    starColor: '#ffb400',
+    emptyStarColor: '#333'
   };
 
   constructor(props) {
@@ -44,23 +46,24 @@ class StarRatingComponent extends Component {
     this.setState({ value });
   }
 
-  onStarClick(prevValue, nextValue, name) {
+  onStarClick(index, value, name) {
     const { onStarClick, editing } = this.props;
 
     if (!editing) {
       return;
     }
 
-    onStarClick && onStarClick(prevValue, nextValue, name);
+    onStarClick && onStarClick(index, value, name);
   }
 
   renderStars() {
-    const { name, starCount, starColor, editing, renderStarIcon } = this.props;
+    const { name, starCount, starColor, emptyStarColor, editing } = this.props;
     const { value } = this.state;
-    const starStyles = {
+    const starStyles = (i, value) => ({
       float: 'right',
-      cursor: editing ? 'pointer' : 'default'
-    };
+      cursor: editing ? 'pointer' : 'default',
+      color: value >= i ? starColor : emptyStarColor
+    });
     const radioStyles = {
       display: 'none',
       position: 'absolute',
@@ -88,16 +91,12 @@ class StarRatingComponent extends Component {
       const starNodeLabel = (
         <label
           key={`label_${id}`}
-          style={value >= i ? {float: starStyles.float, cursor: starStyles.cursor, color: starColor} : starStyles}
+          style={starStyles(i, value)}
           className="dv-star-rating-star"
           htmlFor={id}
           onClick={this.onStarClick.bind(this, i, value, name)}
         >
-          {typeof renderStarIcon === 'function' ? (
-            renderStarIcon(i, value, name)
-          ) : (
-            <i style={{fontStyle: 'normal'}}>&#9733;</i>
-          )}
+          {this.renderIcon(i, value, name)}
         </label>
       );
 
@@ -106,6 +105,24 @@ class StarRatingComponent extends Component {
     }
 
     return starNodes;
+  }
+
+  renderIcon(index, value, name) {
+    const { renderStarIcon, renderStarIconHalf } = this.props;
+
+    if (
+      typeof renderStarIconHalf === 'function' &&
+      Math.floor(value) === index &&
+      value % 1 !== 0
+    ) {
+      return renderStarIconHalf(index, value, name);
+    }
+
+    if (typeof renderStarIcon === 'function') {
+      return renderStarIcon(index, value, name);
+    }
+
+    return <i style={{fontStyle: 'normal'}}>&#9733;</i>;
   }
 
   render() {

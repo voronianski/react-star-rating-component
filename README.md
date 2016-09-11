@@ -26,7 +26,9 @@ npm install react react-star-rating-component --save
     starCount={Number} /* number of icons in rating, default `5` */
     onStarClick={Function(nextValue, prevValue, name)} /* on icon click handler */
     renderStarIcon={Function(nextValue, prevValue, name)} /* it should return string or react component */
+    renderStarIconHalf={Function(nextValue, prevValue, name)} /* it should return string or react component */
     starColor={String} /* color of selected icons, default `#ffb400` */
+    emptyStarColor={String} /* color of non-selected icons, default `#333` */
     editing={Boolean} /* is component available for editing, default `true` */
 />
 ```
