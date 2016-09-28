@@ -97,7 +97,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function componentWillReceiveProps(nextProps) {
 	      var value = nextProps.value;
 
-	      if (value && value !== this.state.value) {
+
+	      if (value != null && value !== this.state.value) {
 	        this.setState({ value: value });
 	      }
 	    }
