@@ -117,9 +117,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'onStarClick',
 	    value: function onStarClick(index, value, name) {
-	      var _props = this.props;
-	      var onStarClick = _props.onStarClick;
-	      var editing = _props.editing;
+	      var _props = this.props,
+	          onStarClick = _props.onStarClick,
+	          editing = _props.editing;
 
 
 	      if (!editing) {
@@ -131,12 +131,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'renderStars',
 	    value: function renderStars() {
-	      var _props2 = this.props;
-	      var name = _props2.name;
-	      var starCount = _props2.starCount;
-	      var starColor = _props2.starColor;
-	      var emptyStarColor = _props2.emptyStarColor;
-	      var editing = _props2.editing;
+	      var _props2 = this.props,
+	          name = _props2.name,
+	          starCount = _props2.starCount,
+	          starColor = _props2.starColor,
+	          emptyStarColor = _props2.emptyStarColor,
+	          editing = _props2.editing;
 	      var value = this.state.value;
 
 	      var starStyles = function starStyles(i, value) {
@@ -189,12 +189,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'renderIcon',
 	    value: function renderIcon(index, value, name) {
-	      var _props3 = this.props;
-	      var renderStarIcon = _props3.renderStarIcon;
-	      var renderStarIconHalf = _props3.renderStarIconHalf;
+	      var _props3 = this.props,
+	          renderStarIcon = _props3.renderStarIcon,
+	          renderStarIconHalf = _props3.renderStarIconHalf;
 
 
-	      if (typeof renderStarIconHalf === 'function' && Math.floor(value) === index && value % 1 !== 0) {
+	      if (typeof renderStarIconHalf === 'function' && Math.ceil(value) === index && value % 1 !== 0) {
 	        return renderStarIconHalf(index, value, name);
 	      }
 
@@ -205,15 +205,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'i',
 	        { style: { fontStyle: 'normal' } },
-	        '★'
+	        '\u2605'
 	      );
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props4 = this.props;
-	      var editing = _props4.editing;
-	      var className = _props4.className;
+	      var _props4 = this.props,
+	          editing = _props4.editing,
+	          className = _props4.className;
 
 	      var classes = (0, _classnames2.default)('dv-star-rating', {
 	        'dv-star-rating-non-editable': !editing
