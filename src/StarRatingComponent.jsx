@@ -113,7 +113,7 @@ class StarRatingComponent extends Component {
 
     if (
       typeof renderStarIconHalf === 'function' &&
-      Math.floor(value) === index &&
+      Math.ceil(value) === index &&
       value % 1 !== 0
     ) {
       return renderStarIconHalf(index, value, name);
