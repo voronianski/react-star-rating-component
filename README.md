@@ -10,7 +10,7 @@
 ## Install
 
 ```bash
-npm install react react-star-rating-component --save
+npm install react-star-rating-component --save
 ```
 
 ## Demo

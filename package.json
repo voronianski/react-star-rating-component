@@ -1,6 +1,6 @@
 {
   "name": "react-star-rating-component",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "React component for star (or any other icon based) ratings",
   "main": "index.js",
   "scripts": {
@@ -60,6 +60,6 @@
   },
   "dependencies": {
     "classnames": "^2.2.0",
-    "react": "^15.3.1"
+    "react": "^15.4.2"
   }
 }
