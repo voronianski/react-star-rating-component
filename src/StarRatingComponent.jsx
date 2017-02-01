@@ -31,7 +31,8 @@ class StarRatingComponent extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { value } = nextProps;
-    if (value && (value !== this.state.value)) {
+
+    if (value != null && (value !== this.state.value)) {
       this.setState({ value });
     }
   }
@@ -92,7 +93,7 @@ class StarRatingComponent extends Component {
         <label
           key={`label_${id}`}
           style={starStyles(i, value)}
-          className="dv-star-rating-star"
+          className={'dv-star-rating-star ' + (value >= i ? 'dv-star-rating-full-star' : 'dv-star-rating-empty-star')}
           htmlFor={id}
           onClick={this.onStarClick.bind(this, i, value, name)}
         >
@@ -112,7 +113,7 @@ class StarRatingComponent extends Component {
 
     if (
       typeof renderStarIconHalf === 'function' &&
-      Math.floor(value) === index &&
+      Math.ceil(value) === index &&
       value % 1 !== 0
     ) {
       return renderStarIconHalf(index, value, name);
