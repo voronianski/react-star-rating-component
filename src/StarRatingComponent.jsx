@@ -93,7 +93,7 @@ class StarRatingComponent extends Component {
         <label
           key={`label_${id}`}
           style={starStyles(i, value)}
-          className="dv-star-rating-star"
+          className={'dv-star-rating-star ' + (value >= i ? 'dv-star-rating-full-star' : 'dv-star-rating-empty-star')}
           htmlFor={id}
           onClick={this.onStarClick.bind(this, i, value, name)}
         >
