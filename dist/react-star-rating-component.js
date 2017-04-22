@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -129,6 +129,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      onStarClick && onStarClick(index, value, name);
 	    }
 	  }, {
+	    key: 'onStarOverOrLeave',
+	    value: function onStarOverOrLeave(index) {
+	      this.setState({ hover: index });
+	    }
+	  }, {
 	    key: 'renderStars',
 	    value: function renderStars() {
 	      var _props2 = this.props,
@@ -137,7 +142,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          starColor = _props2.starColor,
 	          emptyStarColor = _props2.emptyStarColor,
 	          editing = _props2.editing;
-	      var value = this.state.value;
+	      var _state = this.state,
+	          value = _state.value,
+	          hover = _state.hover;
+
+
+	      if (hover) {
+	        value = hover;
+	      }
 
 	      var starStyles = function starStyles(i, value) {
 	        return {
@@ -175,7 +187,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            style: starStyles(i, value),
 	            className: 'dv-star-rating-star ' + (value >= i ? 'dv-star-rating-full-star' : 'dv-star-rating-empty-star'),
 	            htmlFor: id,
-	            onClick: this.onStarClick.bind(this, i, value, name)
+	            onClick: this.onStarClick.bind(this, i, value, name),
+	            onMouseOver: this.onStarOverOrLeave.bind(this, i),
+	            onMouseLeave: this.onStarOverOrLeave.bind(this, null)
 	          },
 	          this.renderIcon(i, value, name)
 	        );
@@ -250,15 +264,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = StarRatingComponent;
 	module.exports = exports['default'];
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	  Copyright (c) 2016 Jed Watson.
@@ -310,7 +324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}());
 
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;
