@@ -65,7 +65,7 @@ class StarRatingComponent extends Component {
     const { name, starCount, starColor, emptyStarColor, editing } = this.props;
     let { value, hover } = this.state;
 
-    if (hover) {
+    if (hover && editing) {
       value = hover;
     }
 

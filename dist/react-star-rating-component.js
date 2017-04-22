@@ -147,7 +147,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          hover = _state.hover;
 
 
-	      if (hover) {
+	      if (hover && editing) {
 	        value = hover;
 	      }
 
