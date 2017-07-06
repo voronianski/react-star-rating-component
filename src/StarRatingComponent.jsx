@@ -59,7 +59,7 @@ class StarRatingComponent extends Component {
   }
 
   renderStars() {
-    const { name, starCount, starColor, emptyStarColor, editing } = this.props;
+    const { name, starCount, starColor, emptyStarColor, editing, ...others } = this.props;
     const { value } = this.state;
     const starStyles = (i, value) => ({
       float: 'right',
@@ -79,6 +79,7 @@ class StarRatingComponent extends Component {
       const id = `${name}_${i}`;
       const starNodeInput = (
         <input
+          {...others}
           key={`input_${id}`}
           style={radioStyles}
           className="dv-star-rating-input"
