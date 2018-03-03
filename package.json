@@ -9,7 +9,7 @@
     "build-dist-dev": "NODE_ENV=development webpack --colors",
     "build-dist-prod": "NODE_ENV=production webpack --progress --colors -p",
     "build-example": "npm run build-dist-prod",
-    "lint": "eslint ./src --fix",
+    "lint": "eslint webpack.config.js ./src --fix",
     "test": "echo \"Comming soon ;)\" && exit 0"
   },
   "repository": {
