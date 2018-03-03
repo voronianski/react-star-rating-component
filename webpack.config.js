@@ -1,59 +1,58 @@
 'use strict';
+const env = process.env.NODE_ENV || "development";
 
-const env = process.env.NODE_ENV || 'development';
+const webpack = require("webpack");
+const path = require("path");
 
-const webpack = require('webpack');
-const path = require('path');
-const webpackUMDExternal = require('webpack-umd-external');
+const isProduction = env === "production";
 
-const pluginsList = [];
-const outputFileName = env === 'production' ?
-    'react-star-rating-component.min.js' :
-    'react-star-rating-component.js';
-
-if (env === 'production') {
-    pluginsList.push(
-        new webpack.optimize.UglifyJsPlugin({
-            compress: { warnings: false },
-            output: { comments: false }
-        })
-    );
-}
+const PATHS = {
+  root: path.join(__dirname, ""),
+  example: path.join(__dirname, "example"),
+};
 
 const config = {
-    entry: path.join(__dirname, 'src/StarRatingComponent.jsx'),
+  mode: env,
+  entry: {
+    "dist/react-star-rating-component": `./index.jsx`,
+    "example/bundle": `${PATHS.example}/index.jsx`
+  },
 
-    output: {
-        path: path.join(__dirname, 'dist'),
-        filename: outputFileName,
-        library: 'ReactStarRatingComponent',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
-    },
+  output: {
+    path: PATHS.root,
+    filename: `[name]${isProduction ? ".min" : ""}.js`,
+    library: "ReactStarRatingComponent",
+    libraryTarget: "umd",
+    umdNamedDefine: true
+  },
 
-    externals: webpackUMDExternal({
-        'react': 'React'
-    }),
+  externals: {
+    "react": "React",
+    "react-dom": "ReactDOM"
+  },
 
-    resolve: {
-        extensions: ['', '.js', '.jsx']
-    },
+  resolve: {
+    extensions: [".js", ".jsx"]
+  },
 
-    plugins: pluginsList,
-
-    module: {
-        preLoaders: [{
-            test: /\.jsx?$/,
-            loaders: ['eslint'],
-            exclude: /node_modules/
-        }],
-
-        loaders: [{
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loaders: ['babel']
-        }]
-    }
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"]
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ["eslint-loader"]
+      }
+    ]
+  },
+  devtool: isProduction
+    ? "cheap-module-source-map"
+    : "cheap-module-eval-source-map"
 };
+
 
 module.exports = config;

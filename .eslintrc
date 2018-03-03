@@ -1,24 +1,24 @@
 {
-  extends: "airbnb/base",
+  "extends": "airbnb/base",
 
-  env: {
+  "env": {
     "es6": true,
     "mocha": true,
     "browser": true
   },
 
-  parser: "babel-eslint",
+  "parser": "babel-eslint",
 
-  plugins: ["react"],
+  "plugins": ["react"],
 
-  ecmaFeatures: {
+  "ecmaFeatures": {
     "jsx": true
   },
 
-  rules: {
+  "rules": {
     "strict": 0,
     "quotes": [2, "single"],
-    "indent": [2, 2, {SwitchCase: 1}],
+    "indent": [2, 2, {"SwitchCase": 1}],
     "semi": [2, "always"],
     "no-underscore-dangle": 0,
     "no-unused-vars": 1,
