@@ -18,7 +18,6 @@ class StarRatingComponent extends Component {
 
   static defaultProps = {
     starCount: 5,
-    value: 0,
     editing: true,
     starColor: '#ffb400',
     emptyStarColor: '#333'
