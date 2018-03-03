@@ -58,9 +58,18 @@ class StarRatingComponent extends Component {
     onStarClick && onStarClick(index, value, name);
   }
 
+  onStarOverOrLeave(index) {
+    this.setState({ hover: index });
+  }
+
   renderStars() {
     const { name, starCount, starColor, emptyStarColor, editing } = this.props;
-    const { value } = this.state;
+    let { value, hover } = this.state;
+
+    if (hover && editing) {
+      value = hover;
+    }
+
     const starStyles = (i, value) => ({
       float: 'right',
       cursor: editing ? 'pointer' : 'default',
@@ -97,6 +106,8 @@ class StarRatingComponent extends Component {
           className={'dv-star-rating-star ' + (value >= i ? 'dv-star-rating-full-star' : 'dv-star-rating-empty-star')}
           htmlFor={id}
           onClick={this.onStarClick.bind(this, i, value, name)}
+          onMouseOver={this.onStarOverOrLeave.bind(this, i)}
+          onMouseLeave={this.onStarOverOrLeave.bind(this, null)}
         >
           {this.renderIcon(i, value, name)}
         </label>
