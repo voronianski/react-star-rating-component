@@ -1,6 +1,5 @@
 # react-star-rating-component
 
-[![build status](http://img.shields.io/travis/voronianski/react-star-rating-component.svg?style=flat)](https://travis-ci.org/voronianski/react-star-rating-component)
 [![npm version](http://badge.fury.io/js/react-star-rating-component.svg)](http://badge.fury.io/js/react-star-rating-component)
 [![Dependency Status](http://david-dm.org/voronianski/react-star-rating-component.svg)](http://david-dm.org/voronianski/react-star-rating-component)
 [![Download Count](http://img.shields.io/npm/dm/react-star-rating-component.svg?style=flat)](http://www.npmjs.com/package/react-star-rating-component)
