@@ -51,8 +51,7 @@ class App extends React.Component {
             name="app2"
             starCount={8}
             value={this.state.rating}
-            onStarClick={this.onStarClick.bind(this)}
-          />
+            onStarClick={this.onStarClick.bind(this)} />
         </div>
 
         <h3>Editable (with custom icons):</h3>
@@ -63,8 +62,7 @@ class App extends React.Component {
             value={this.state.rating_custom_icon}
             onStarClick={this.onStarClickCustomIcon.bind(this)}
             starColor="#f00"
-            renderStarIcon={() => <span></span>}
-          />
+            renderStarIcon={() => <span></span>} />
         </div>
 
         <h3>Non-Editable:</h3>
@@ -73,8 +71,7 @@ class App extends React.Component {
             name="app4"
             editing={false}
             starCount={10}
-            value={8}
-          />
+            value={8} />
         </div>
 
         <h3>Editable (with half-stars):</h3>
@@ -88,8 +85,7 @@ class App extends React.Component {
             renderStarIcon={(index, value) => {
               return <span className={index <= value ? 'fa fa-star' : 'fa fa-star-o'} />;
             }}
-            renderStarIconHalf={() => <span className="fa fa-star-half-full" />}
-          />
+            renderStarIconHalf={() => <span className="fa fa-star-half-full" />} />
         </div>
 
         <h3>Editable (with 0 initial value):</h3>
@@ -97,8 +93,7 @@ class App extends React.Component {
           <StarRatingComponent
             name="app6"
             value={this.state.rating_empty_initial}
-            onStarClick={this.onStarClickEmptyInitial.bind(this)}
-          />
+            onStarClick={this.onStarClickEmptyInitial.bind(this)} />
         </div>
       </div>
     );

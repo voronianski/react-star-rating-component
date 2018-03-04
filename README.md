@@ -1,6 +1,5 @@
 # react-star-rating-component
 
-[![build status](http://img.shields.io/travis/voronianski/react-star-rating-component.svg?style=flat)](https://travis-ci.org/voronianski/react-star-rating-component)
 [![npm version](http://badge.fury.io/js/react-star-rating-component.svg)](http://badge.fury.io/js/react-star-rating-component)
 [![Dependency Status](http://david-dm.org/voronianski/react-star-rating-component.svg)](http://david-dm.org/voronianski/react-star-rating-component)
 [![Download Count](http://img.shields.io/npm/dm/react-star-rating-component.svg?style=flat)](http://www.npmjs.com/package/react-star-rating-component)
@@ -25,6 +24,8 @@ npm install react-star-rating-component --save
     value={Number} /* number of selected icon (`0` - none, `1` - first) */
     starCount={Number} /* number of icons in rating, default `5` */
     onStarClick={Function(nextValue, prevValue, name)} /* on icon click handler */
+    onStarHover={Function(nextValue, prevValue, name)} /* on icon hover handler */
+    onStarHoverOut={Function(nextValue, prevValue, name)} /* on icon hover out handler */
     renderStarIcon={Function(nextValue, prevValue, name)} /* it should return string or react component */
     renderStarIconHalf={Function(nextValue, prevValue, name)} /* it should return string or react component */
     starColor={String} /* color of selected icons, default `#ffb400` */
@@ -43,37 +44,38 @@ import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
 
 class App extends React.Component {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.state = {
-            rating: 1
-        };
-    }
+    this.state = {
+      rating: 1
+    };
+  }
 
-    onStarClick(nextValue, prevValue, name) {
-        this.setState({rating: nextValue});
-    }
+  onStarClick(nextValue, prevValue, name) {
+    this.setState({rating: nextValue});
+  }
 
-    render() {
-        const { rating } = this.state;
-        return (                
-            <div>
-                <h2>Rating from state: {rating}</h2>
-                <StarRatingComponent 
-                    name="rate1" 
-                    starCount={10}
-                    value={rating}
-                    onStarClick={this.onStarClick.bind(this)}
-                />
-            </div>
-        );
-    }
+  render() {
+    const { rating } = this.state;
+    
+    return (                
+      <div>
+        <h2>Rating from state: {rating}</h2>
+        <StarRatingComponent 
+          name="rate1" 
+          starCount={10}
+          value={rating}
+          onStarClick={this.onStarClick.bind(this)}
+        />
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
-    <App />, 
-    document.getElementById('app')
+  <App />, 
+  document.getElementById('app')
 );
 ```
 
@@ -85,26 +87,27 @@ import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
 
 class App extends React.Component {
-    render() {
-        const { rating } = this.state;
-        return (                
-            <div>
-                <h2>Rating from state: {rating}</h2>
-                <StarRatingComponent 
-                    name="rate2" 
-                    editing={false}
-                    renderStarIcon={() => <span></span>}
-                    starCount={10}
-                    value={8}
-                />
-            </div>
-        );
-    }
+  render() {
+    const { rating } = this.state;
+
+    return (                
+      <div>
+        <h2>Rating from state: {rating}</h2>
+        <StarRatingComponent 
+          name="rate2" 
+          editing={false}
+          renderStarIcon={() => <span></span>}
+          starCount={10}
+          value={8}
+        />
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
-    <App />, 
-    document.getElementById('app')
+  <App />, 
+  document.getElementById('app')
 );
 ```
 

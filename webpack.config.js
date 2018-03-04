@@ -1,7 +1,5 @@
-'use strict';
-
 const env = process.env.NODE_ENV || 'development';
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
 const isProduction = env === 'production';
@@ -10,6 +8,8 @@ const PATHS = {
   root: path.join(__dirname, ''),
   example: path.join(__dirname, 'example')
 };
+
+const pluginsList = [];
 
 const config = {
   mode: env,
@@ -21,7 +21,6 @@ const config = {
   output: {
     path: PATHS.root,
     filename: `[name]${isProduction ? '.min' : ''}.js`,
-    library: 'ReactStarRatingComponent',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
@@ -35,24 +34,39 @@ const config = {
     extensions: ['.js', '.jsx']
   },
 
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        sourceMap: true,
+        uglifyOptions: {
+          output: { comments: false },
+          compress: { warnings: false }
+        }
+      })
+    ]
+  },
+
+  devtool: isProduction
+    ? 'cheap-module-source-map'
+    : 'cheap-module-eval-source-map',
+
+  plugins: pluginsList,
+
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
+        test: /\.jsx?$/,
+        enforce: 'pre',
+        loader: 'eslint-loader',
+        exclude: /node_modules/
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: ['eslint-loader']
+        loader: 'babel-loader'
       }
     ]
-  },
-  devtool: isProduction
-    ? 'cheap-module-source-map'
-    : 'cheap-module-eval-source-map'
+  }
 };
-
 
 module.exports = config;
