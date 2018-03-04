@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 class StarRatingComponent extends Component {
@@ -9,13 +10,14 @@ class StarRatingComponent extends Component {
     starCount: PropTypes.number,
     starColor: PropTypes.string,
     onStarClick: PropTypes.func,
+    onStarHover: PropTypes.func,
+    onStarHoverOut: PropTypes.func,
     renderStarIcon: PropTypes.func,
     renderStarIconHalf: PropTypes.func
   };
 
   static defaultProps = {
     starCount: 5,
-    value: 0,
     editing: true,
     starColor: '#ffb400',
     emptyStarColor: '#333'
@@ -37,29 +39,67 @@ class StarRatingComponent extends Component {
     }
   }
 
-  onChange(value) {
-    const { editing } = this.props;
+  onChange(inputValue) {
+    const { editing, value } = this.props;
 
     if (!editing) {
       return;
     }
 
-    this.setState({ value });
+    // do not update internal state based on input value if prop passed
+    if (value != null) {
+      return;
+    }
+
+    this.setState({value: inputValue});
   }
 
-  onStarClick(index, value, name) {
+  onStarClick(index, value, name, e) {
+    e.stopPropagation();
+
     const { onStarClick, editing } = this.props;
 
     if (!editing) {
       return;
     }
 
-    onStarClick && onStarClick(index, value, name);
+    onStarClick && onStarClick(index, value, name, e);
+  }
+
+  onStarHover(index, value, name, e) {
+    e.stopPropagation();
+
+    const { onStarHover, editing } = this.props;
+
+    if (!editing) {
+      return;
+    }
+
+    onStarHover && onStarHover(index, value, name, e);
+  }
+
+  onStarHoverOut(index, value, name, e) {
+    e.stopPropagation();
+
+    const { onStarHoverOut, editing } = this.props;
+
+    if (!editing) {
+      return;
+    }
+
+    onStarHoverOut && onStarHoverOut(index, value, name, e);
   }
 
   renderStars() {
-    const { name, starCount, starColor, emptyStarColor, editing } = this.props;
+    const {
+      name,
+      starCount,
+      starColor,
+      emptyStarColor,
+      editing
+    } = this.props;
     const { value } = this.state;
+
     const starStyles = (i, value) => ({
       float: 'right',
       cursor: editing ? 'pointer' : 'default',
@@ -95,9 +135,11 @@ class StarRatingComponent extends Component {
           style={starStyles(i, value)}
           className={'dv-star-rating-star ' + (value >= i ? 'dv-star-rating-full-star' : 'dv-star-rating-empty-star')}
           htmlFor={id}
-          onClick={this.onStarClick.bind(this, i, value, name)}
+          onClick={e => this.onStarClick(i, value, name, e)}
+          onMouseOver={e => this.onStarHover(i, value, name, e)}
+          onMouseLeave={e => this.onStarHoverOut(i, value, name, e)}
         >
-          {this.renderIcon(i, value, name)}
+          {this.renderIcon(i, value, name, id)}
         </label>
       );
 
@@ -105,10 +147,10 @@ class StarRatingComponent extends Component {
       starNodes.push(starNodeLabel);
     }
 
-    return starNodes;
+    return starNodes.length ? starNodes : null;
   }
 
-  renderIcon(index, value, name) {
+  renderIcon(index, value, name, id) {
     const { renderStarIcon, renderStarIconHalf } = this.props;
 
     if (
@@ -116,14 +158,14 @@ class StarRatingComponent extends Component {
       Math.ceil(value) === index &&
       value % 1 !== 0
     ) {
-      return renderStarIconHalf(index, value, name);
+      return renderStarIconHalf(index, value, name, id);
     }
 
     if (typeof renderStarIcon === 'function') {
-      return renderStarIcon(index, value, name);
+      return renderStarIcon(index, value, name, id);
     }
 
-    return <i style={{fontStyle: 'normal'}}>&#9733;</i>;
+    return <i key={`icon_${id}`} style={{fontStyle: 'normal'}}>&#9733;</i>;
   }
 
   render() {
@@ -135,7 +177,7 @@ class StarRatingComponent extends Component {
     return (
       <div style={{display: 'inline-block', position: 'relative'}} className={classes}>
         {this.renderStars()}
-       </div>
+      </div>
     );
   }
 }

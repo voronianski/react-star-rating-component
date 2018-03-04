@@ -25,8 +25,15 @@ class App extends React.Component {
     this.setState({rating_custom_icon: nextValue});
   }
 
-  onStarClickHalfStar(nextValue, prevValue, name) {
+  onStarClickHalfStar(nextValue, prevValue, name, e) {
+    const xPos = (e.pageX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.offsetWidth;
+
+    if (xPos <= 0.5) {
+      nextValue -= 0.5;
+    }
+
     console.log('name: %s, nextValue: %s, prevValue: %s', name, nextValue, prevValue);
+    // console.log(e);
     this.setState({rating_half_star: nextValue});
   }
 
@@ -51,8 +58,7 @@ class App extends React.Component {
             name="app2"
             starCount={8}
             value={this.state.rating}
-            onStarClick={this.onStarClick.bind(this)}
-          />
+            onStarClick={this.onStarClick.bind(this)} />
         </div>
 
         <h3>Editable (with custom icons):</h3>
@@ -63,8 +69,7 @@ class App extends React.Component {
             value={this.state.rating_custom_icon}
             onStarClick={this.onStarClickCustomIcon.bind(this)}
             starColor="#f00"
-            renderStarIcon={() => <span></span>}
-          />
+            renderStarIcon={() => <span></span>} />
         </div>
 
         <h3>Non-Editable:</h3>
@@ -73,32 +78,40 @@ class App extends React.Component {
             name="app4"
             editing={false}
             starCount={10}
-            value={8}
-          />
-        </div>
-
-        <h3>Editable (with half-stars):</h3>
-        <div style={{fontSize: 24}}>
-          <StarRatingComponent
-            name="app5"
-            starColor="#ffb400"
-            emptyStarColor="#ffb400"
-            value={this.state.rating_half_star}
-            onStarClick={this.onStarClickHalfStar.bind(this)}
-            renderStarIcon={(index, value) => {
-              return <span className={index <= value ? 'fa fa-star' : 'fa fa-star-o'} />;
-            }}
-            renderStarIconHalf={() => <span className="fa fa-star-half-full" />}
-          />
+            value={8} />
         </div>
 
         <h3>Editable (with 0 initial value):</h3>
         <div style={{fontSize: 24}}>
           <StarRatingComponent
-            name="app6"
+            name="app5"
             value={this.state.rating_empty_initial}
-            onStarClick={this.onStarClickEmptyInitial.bind(this)}
-          />
+            onStarClick={this.onStarClickEmptyInitial.bind(this)} />
+        </div>
+
+        <h3>Editable (with half-stars):</h3>
+        <div style={{fontSize: 24}}>
+          <StarRatingComponent
+            name="app6"
+            starColor="#ffb400"
+            emptyStarColor="#ffb400"
+            value={this.state.rating_half_star}
+            onStarClick={this.onStarClickHalfStar.bind(this)}
+            renderStarIcon={(index, value) => {
+              return (
+                <span>
+                  <i className={index <= value ? 'fas fa-star' : 'far fa-star'} />
+                </span>
+              );
+            }}
+            renderStarIconHalf={() => {
+              return (
+                <span>
+                  <span style={{position: 'absolute'}}><i className="far fa-star" /></span>
+                  <span><i className="fas fa-star-half" /></span>
+                </span>
+              );
+            }} />
         </div>
       </div>
     );
