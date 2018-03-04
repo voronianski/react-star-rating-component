@@ -142,7 +142,7 @@ class StarRatingComponent extends Component {
       starNodes.push(starNodeLabel);
     }
 
-    return starNodes;
+    return starNodes.length ? starNodes : null;
   }
 
   renderIcon(index, value, name) {
