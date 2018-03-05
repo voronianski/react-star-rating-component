@@ -114,7 +114,7 @@ class StarRatingComponent extends Component {
     // populate stars
     let starNodes = [];
 
-    for (let i = starCount; i > 0; i - 1) {
+    for (let i = starCount; i > 0; i--) {
       const id = `${name}_${i}`;
       const starNodeInput = (
         <input
