@@ -39,14 +39,19 @@ class StarRatingComponent extends Component {
     }
   }
 
-  onChange(value) {
-    const { editing } = this.props;
+  onChange(inputValue) {
+    const { editing, value } = this.props;
 
     if (!editing) {
       return;
     }
 
-    this.setState({ value });
+    // do not update internal state based on input value if prop passed
+    if (value != null) {
+      return;
+    }
+
+    this.setState({value: inputValue});
   }
 
   onStarClick(index, value, name, e) {
@@ -58,7 +63,7 @@ class StarRatingComponent extends Component {
       return;
     }
 
-    onStarClick && onStarClick(index, value, name);
+    onStarClick && onStarClick(index, value, name, e);
   }
 
   onStarHover(index, value, name, e) {
@@ -70,7 +75,7 @@ class StarRatingComponent extends Component {
       return;
     }
 
-    onStarHover && onStarHover(index, value, name);
+    onStarHover && onStarHover(index, value, name, e);
   }
 
   onStarHoverOut(index, value, name, e) {
@@ -82,7 +87,7 @@ class StarRatingComponent extends Component {
       return;
     }
 
-    onStarHoverOut && onStarHoverOut(index, value, name);
+    onStarHoverOut && onStarHoverOut(index, value, name, e);
   }
 
   renderStars() {
@@ -134,7 +139,7 @@ class StarRatingComponent extends Component {
           onMouseOver={e => this.onStarHover(i, value, name, e)}
           onMouseLeave={e => this.onStarHoverOut(i, value, name, e)}
         >
-          {this.renderIcon(i, value, name)}
+          {this.renderIcon(i, value, name, id)}
         </label>
       );
 
@@ -142,10 +147,10 @@ class StarRatingComponent extends Component {
       starNodes.push(starNodeLabel);
     }
 
-    return starNodes;
+    return starNodes.length ? starNodes : null;
   }
 
-  renderIcon(index, value, name) {
+  renderIcon(index, value, name, id) {
     const { renderStarIcon, renderStarIconHalf } = this.props;
 
     if (
@@ -153,14 +158,14 @@ class StarRatingComponent extends Component {
       Math.ceil(value) === index &&
       value % 1 !== 0
     ) {
-      return renderStarIconHalf(index, value, name);
+      return renderStarIconHalf(index, value, name, id);
     }
 
     if (typeof renderStarIcon === 'function') {
-      return renderStarIcon(index, value, name);
+      return renderStarIcon(index, value, name, id);
     }
 
-    return <i style={{fontStyle: 'normal'}}>&#9733;</i>;
+    return <i key={`icon_${id}`} style={{fontStyle: 'normal'}}>&#9733;</i>;
   }
 
   render() {
